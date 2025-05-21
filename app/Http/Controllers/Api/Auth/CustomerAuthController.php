@@ -76,7 +76,7 @@ class CustomerAuthController extends Controller
         return ApiResponse::sendResponse(200, 'Logout Successfully', []);
     }
 
-    public function user(Request $request)
+    public function me(Request $request)
     {
         return ApiResponse::sendResponse(200, 'User Details', $request->user());
     }

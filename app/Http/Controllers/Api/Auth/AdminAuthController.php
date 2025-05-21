@@ -16,13 +16,13 @@ class AdminAuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'email', 'max:255', 'unique:' . User::class],
+            'password'  => ['required', 'confirmed', Rules\Password::defaults()],
         ], [], [
-            'name' => 'Name',
-            'email' => 'Email',
-            'password' => 'Password',
+            'name'      => 'Name',
+            'email'     => 'Email',
+            'password'  => 'Password',
         ]);
 
         if ($validator->fails()) {
@@ -30,16 +30,16 @@ class AdminAuthController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type' => 'admin',
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'type'      => 'admin',
         ]);
 
-        $data['token'] = $user->createToken('API')->plainTextToken;
-        $data['name'] = $user->name;
-        $data['email'] = $user->email;
-        $data['type'] = $user->type;
+        $data['token']  = $user->createToken('API')->plainTextToken;
+        $data['name']   = $user->name;
+        $data['email']  = $user->email;
+        $data['type']   = $user->type;
 
         return ApiResponse::sendResponse(201, 'User Account Created Successfully', $data);
     }
@@ -76,7 +76,7 @@ class AdminAuthController extends Controller
         return ApiResponse::sendResponse(200, 'Logout Successfully', []);
     }
 
-    public function user(Request $request)
+    public function me(Request $request)
     {
         return ApiResponse::sendResponse(200, 'User Details', $request->user());
     }
